@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { getUser } from '../services/userAPI';
 import Loading from '../pages/Loading';
 
@@ -14,6 +15,7 @@ class Header extends Component {
 
   ShowName = async () => {
     const ObjectUser = await getUser();
+    console.log(ObjectUser);
     this.setState({
       loggedUser: ObjectUser,
       itsLoading: false,
@@ -28,9 +30,12 @@ class Header extends Component {
           itsLoading
             ? <Loading />
             : (
-              <h2 data-testid="header-user-name">
-                { loggedUser.name }
-              </h2>
+              <div>
+                <h2 data-testid="header-user-name">{ loggedUser.name }</h2>
+                <Link to="/search" data-testid="link-to-search">Search</Link>
+                <Link to="/favorites" data-testid="link-to-favorites">Favorites</Link>
+                <Link to="/profile" data-testid="link-to-profile">Profile</Link>
+              </div>
             )
         }
       </header>
