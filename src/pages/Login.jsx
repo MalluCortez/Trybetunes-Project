@@ -6,7 +6,7 @@ import Loading from './Loading';
 class Login extends Component {
   state = {
     loginName: '',
-    isSaveButtonDisabled: true,
+    isDisabled: true,
     itsLoading: false,
   };
 
@@ -15,7 +15,7 @@ class Login extends Component {
     const minimumNumber = 3;
     const verificationName = loginName.length < minimumNumber;
     this.setState({
-      isSaveButtonDisabled: verificationName,
+      isDisabled: verificationName,
     });
   };
 
@@ -39,7 +39,7 @@ class Login extends Component {
   };
 
   render() {
-    const { loginName, isSaveButtonDisabled, itsLoading } = this.state;
+    const { loginName, isDisabled, itsLoading } = this.state;
     return (
       <div data-testid="page-login">
         {
@@ -47,7 +47,7 @@ class Login extends Component {
             ? <Loading />
             : (
               <form>
-                <label htmlFor="name-input">
+                <label htmlFor="login-name-input">
                   Nome
                   <input
                     type="text"
@@ -62,7 +62,7 @@ class Login extends Component {
                   type="button"
                   data-testid="login-submit-button"
                   id="login-submit-button"
-                  disabled={ isSaveButtonDisabled }
+                  disabled={ isDisabled }
                   onClick={ this.onSaveButtonClick }
                 >
                   Entrar

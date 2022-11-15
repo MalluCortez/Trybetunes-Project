@@ -5,7 +5,7 @@ import Loading from '../pages/Loading';
 class Header extends Component {
   state = {
     loggedUser: { },
-    itsLoading: false,
+    itsLoading: true,
   };
 
   componentDidMount() {
@@ -13,14 +13,9 @@ class Header extends Component {
   }
 
   ShowName = async () => {
-    this.setState({
-      itsLoading: true,
-    });
     const ObjectUser = await getUser();
     this.setState({
       loggedUser: ObjectUser,
-    });
-    this.setState({
       itsLoading: false,
     });
   };
