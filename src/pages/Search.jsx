@@ -6,9 +6,9 @@ import searchAlbumsAPI from '../services/searchAlbumsAPI';
 
 class Search extends Component {
   state = {
-    responseInfos: [],
     searchArtist: '',
     artistName: '',
+    responseInfos: [],
     isDisabled: true,
     itsLoading: false,
     clickButton: false,
@@ -45,49 +45,42 @@ class Search extends Component {
         hasAlbum: true,
       });
     }
-    this.setState({ itsLoading: true, clickButton: true });
+    this.setState({ itsLoading: false, clickButton: true });
   };
 
   render() {
     const { searchArtist, isDisabled, itsLoading, responseInfos,
       artistName, clickButton, hasAlbum } = this.state;
     return (
-      <section>
-        <div data-testid="page-search">
-          <Header />
-          {
-            itsLoading
-              ? <Loading />
-              : (
-                <section>
-                  <form>
-                    <label htmlFor="search-artist-input">
-                      Nome da Banda ou Artista
-                      <input
-                        type="text"
-                        placeholder="Nome do Artista"
-                        id="search-artist-input"
-                        data-testid="search-artist-input"
-                        name="searchArtist"
-                        value={ searchArtist }
-                        onChange={ this.handleChange }
-                      />
-                    </label>
-                    <button
-                      type="button"
-                      data-testid="search-artist-button"
-                      id="search-artist-button"
-                      disabled={ isDisabled }
-                      onClick={ this.onSearchButton }
-                    >
-                      Pesquisar
-                    </button>
-                  </form>
-                </section>
-              )
-          }
-        </div>
-        { (hasAlbum)
+      <div data-testid="page-search">
+        <Header />
+        {
+          itsLoading
+            ? <Loading />
+            : (
+              <section>
+                <form>
+                  <input
+                    type="text"
+                    placeholder="Nome do Artista"
+                    data-testid="search-artist-input"
+                    name="searchArtist"
+                    value={ searchArtist }
+                    onChange={ this.handleChange }
+                  />
+                  <button
+                    type="button"
+                    data-testid="search-artist-button"
+                    disabled={ isDisabled }
+                    onClick={ this.onSearchButton }
+                  >
+                    Pesquisar
+                  </button>
+                </form>
+              </section>
+            )
+        }
+        { (hasAlbum && !itsLoading)
           && (
             <p>{ `Resultado de álbuns de: ${artistName}`}</p>
           )}
@@ -104,7 +97,7 @@ class Search extends Component {
               <li>{ info.collectionName }</li>
               <li>{ info.artistName }</li>
               <Link
-                data-testid={ `link-to-album-${collectionId}` }
+                data-testid={ `link-to-album-${info.collectionId}` }
                 to={ `/album/${info.collectionId}` }
               >
                 Album
@@ -112,7 +105,7 @@ class Search extends Component {
             </ul>
           ))
         }
-      </section>
+      </div>
     );
   }
 }
