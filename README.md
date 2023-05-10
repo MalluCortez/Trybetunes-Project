@@ -36,4 +36,4 @@ Neste projeto criei o TrybeTunes, uma aplicação capaz de reproduzir músicas d
 
 # Stacks Utilizadas
 
-- React, JavaScripit, RTL
+- React, JavaScripit
